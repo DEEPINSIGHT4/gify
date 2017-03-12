@@ -1,0 +1,65 @@
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>gif</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
+</head>
+<body>
+				<div class="buttons">
+				<button type="button" class="btn btn-primary" data-country="russia">russia</button>
+				<button type="button" class="btn btn-primary" data-country="italy">italy</button>
+				<button type="button" class="btn btn-primary" data-country="nepal">nepal</button>
+				<button type="button" class="btn btn-primary" data-country="america">usa</button>
+				<button type="button" class="btn btn-primary" data-country="poland">Poland</button>
+				<button type="button" class="btn btn-primary" data-country="mexico">mexico</button>
+				<button type="button" class="btn btn-primary" data-country="india">india</button>
+				<button type="button" class="btn btn-primary" data-country="china">china</button>
+				<button type="button" class="btn btn-primary" data-country="japan">japan</button>
+
+				</div>
+		<div id="gifs-appear-here">
+  			</div>
+
+  				<script src="http://code.jquery.com/jquery-2.1.3.min.js"></script>
+  				<script type="text/javascript">
+   		 			$("button").on("click", function() {
+      					var country = $(this).attr("data-country");
+     					 var queryURL = "http://api.giphy.com/v1/gifs/search?q=" +
+        					country + "&api_key=dc6zaTOxFJmzC&limit=10";
+
+      			$.ajax({
+        		 url: queryURL,
+         		 method: "GET"
+       			 })
+        	.done(function(response) {
+          	var results = response.data;
+
+          	for (var i = 0; i < results.length; i++) {
+            var gifDiv = $("<div class='item'>");
+
+            var rating = results[i].rating;
+
+            var p = $("<p>").text("Rating: " + rating);
+
+            var countryImage = $("<img>");
+            countryImage.attr("src", results[i].images.fixed_height.url);
+
+            gifDiv.prepend(p);
+            gifDiv.prepend(countryImage);
+
+            $("#gifs-appear-here").prepend(gifDiv);
+          }
+        });
+    });
+  </script>
+
+
+
+
+</body>
+</html>
